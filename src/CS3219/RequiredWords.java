@@ -35,4 +35,7 @@ public class RequiredWords {
         return this._requiredwords.contains(word);
     }
     
+    public boolean isSetEmpty(){
+    	return (this._requiredwords.size()==0);
+    }
 }

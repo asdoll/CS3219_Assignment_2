@@ -14,6 +14,7 @@ public class CircularShift {
     private String _line;
     private WordsToIgnore _wordsToIgnore;
     private RequiredWords _requiredwords;
+    private boolean requiredEmpty;
 
     /**
      * input should not be null
@@ -24,6 +25,7 @@ public class CircularShift {
         this._line = line.toLowerCase();
         this._wordsToIgnore = WordsToIgnore.getWordsToIgnore();
         this._requiredwords = RequiredWords.getRequiredWords();
+        requiredEmpty = this._requiredwords.isSetEmpty();
     }
 
     public String[] getCircularShifts() {
@@ -63,15 +65,23 @@ public class CircularShift {
 
     private String[] getShiftsWithoutIgnoredWordLeading(String[] shifts) {
         List<String> shiftList = new ArrayList<String>(Arrays.asList(shifts));
-
         Iterator<String> iter = shiftList.iterator();
+        if (requiredEmpty) {
+        	while (iter.hasNext()) {
+            	String nextelem = iter.next();
+                if (isShiftStartingWithIgnoredWord(nextelem)) {
+                    iter.remove();
+                }
+             }
+        }
+        else {
         while (iter.hasNext()) {
         	String nextelem = iter.next();
             if (isShiftStartingWithIgnoredWord(nextelem) || !isShiftStartingWithRequiredWord(nextelem)) {
                 iter.remove();
             }
+         }
         }
-
         return shiftList.toArray(new String[shiftList.size()]);
     }
 
