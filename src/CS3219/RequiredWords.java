@@ -3,9 +3,7 @@ package CS3219;
 
 import java.util.HashSet;
 
-/**
- * Created by junchao on 8/23/2014.
- */
+
 public class RequiredWords {
     private HashSet<String> _requiredwords;
     private static RequiredWords _instatnce;
